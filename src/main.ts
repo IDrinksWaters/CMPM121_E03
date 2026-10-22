@@ -3,7 +3,7 @@ const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 
 // The prototype grew inline. Keep it this way until the refactoring checkpoint.
 const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-face.setAttribute("viewBox", "0 0 200 200");
+face.setAttribute("viewBox", "0 0 400 400");
 face.setAttribute("role", "img");
 face.setAttribute("aria-label", "A neutral face");
 
@@ -58,6 +58,54 @@ mouth.setAttribute("stroke", "#302c29");
 mouth.setAttribute("stroke-width", "4");
 mouth.setAttribute("stroke-linecap", "round");
 face.append(mouth);
+
+portrait.append(face);
+
+// B--------------------------
+
+//Make the portrait container a positioning reference.
+portrait.style.position = "relative";
+portrait.style.overflow = "hidden";
+
+// for windows bliss background
+const background = document.createElement("img");
+background.src =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4GeoQObLQJVpMUtHK8v2KDhgjgvFhZ19N50ib8HYr-A&s";
+background.alt = "Green hills and blue sky";
+
+Object.assign(background.style, {
+  position: "absolute",
+  inset: "0",
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  zIndex: "0",
+});
+
+portrait.append(background);
+
+// for house image
+const house = document.createElement("img");
+house.src =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkSG7LWCvesCfaJGyyrMALHhkBBwKtfwbARFh-dsTQEebge5GvR2s_CUK&s=10";
+house.alt = "Futuristic house in a grassy landscape";
+
+Object.assign(house.style, {
+  position: "absolute",
+  width: "45%",
+  height: "auto",
+  left: "50%",
+  bottom: "14%",
+  zIndex: "1",
+});
+
+portrait.append(house);
+
+Object.assign(face.style, {
+  position: "relative",
+  zIndex: "2",
+  overflow: "visible",
+});
 
 portrait.append(face);
 
