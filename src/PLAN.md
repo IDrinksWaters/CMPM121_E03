@@ -13,7 +13,7 @@ covering the entirety of the back as background and house PNG to the right of th
 
 Criterion: How effectively the images create a peaceful setting while keeping the character at the front (Great, I love my Frutiger Aero vibe house, really gives off that peaceful feel)
 
-C -> Color and Curves: Spicy Face [EXPLORED]
+C -> Color and Curves: Spicy Face [EXPLORED] ------------- CHOSEN BECAUSE I LIKE THE COLORS BETTER!@!@!@!@!@!@!!!!!!!!!!!!@!@
 
 Use a gradient transition of yellow to orange then red vertically from buttom to top across character's face to show that it
 has eaten something VERYYYY spicy, we can use a Bezier curve to draw an exaggerated open mouth to show how the character is reacting
