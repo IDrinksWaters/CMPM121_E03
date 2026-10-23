@@ -1,6 +1,3 @@
-const portrait = document.querySelector<HTMLDivElement>("#portrait")!;
-const spin = document.querySelector<HTMLButtonElement>("#spin")!;
-
 // The prototype grew inline. Keep it this way until the refactoring checkpoint.
 const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 face.setAttribute("viewBox", "0 0 200 200");
