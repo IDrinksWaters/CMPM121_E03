@@ -2,7 +2,10 @@ const portrait = document.querySelector<HTMLDivElement>("#portrait")!;
 const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 
 // The prototype grew inline. Keep it this way until the refactoring checkpoint.
-const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+const face = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "svg",
+);
 face.setAttribute("viewBox", "0 0 400 400");
 face.setAttribute("role", "img");
 face.setAttribute("aria-label", "A neutral face");
@@ -39,7 +42,10 @@ rightEye.setAttribute("ry", "9");
 rightEye.setAttribute("fill", "#302c29");
 face.append(rightEye);
 
-const nose = document.createElementNS("http://www.w3.org/2000/svg", "line");
+const nose = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "line",
+);
 nose.setAttribute("x1", "100");
 nose.setAttribute("y1", "96");
 nose.setAttribute("x2", "96");
@@ -49,7 +55,10 @@ nose.setAttribute("stroke-width", "4");
 nose.setAttribute("stroke-linecap", "round");
 face.append(nose);
 
-const mouth = document.createElementNS("http://www.w3.org/2000/svg", "line");
+const mouth = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "line",
+);
 mouth.setAttribute("x1", "75");
 mouth.setAttribute("y1", "137");
 mouth.setAttribute("x2", "125");
@@ -59,15 +68,21 @@ mouth.setAttribute("stroke-width", "4");
 mouth.setAttribute("stroke-linecap", "round");
 face.append(mouth);
 
-portrait.append(face);
-
-// B--------------------------
-
-//Make the portrait container a positioning reference.
+// B --------------------------
+// Create the container that will spin all the artwork
 portrait.style.position = "relative";
 portrait.style.overflow = "hidden";
 
-// for windows bliss background
+const artwork = document.createElement("div");
+
+Object.assign(artwork.style, {
+  position: "relative",
+  width: "100%",
+  height: "400px",
+  transformOrigin: "center center",
+});
+
+// Windows XP Bliss background
 const background = document.createElement("img");
 background.src =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4GeoQObLQJVpMUtHK8v2KDhgjgvFhZ19N50ib8HYr-A&s";
@@ -82,13 +97,11 @@ Object.assign(background.style, {
   zIndex: "0",
 });
 
-portrait.append(background);
-
-// for house image
+// House image
 const house = document.createElement("img");
 house.src =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPkSG7LWCvesCfaJGyyrMALHhkBBwKtfwbARFh-dsTQEebge5GvR2s_CUK&s=10";
-house.alt = "Futuristic house in a grassy landscape";
+house.alt = "House in a grassy landscape";
 
 Object.assign(house.style, {
   position: "absolute",
@@ -99,21 +112,36 @@ Object.assign(house.style, {
   zIndex: "1",
 });
 
-portrait.append(house);
-
 Object.assign(face.style, {
   position: "relative",
+  display: "block",
+  width: "100%",
+  height: "100%",
   zIndex: "2",
   overflow: "visible",
 });
 
-portrait.append(face);
+artwork.append(background);
+artwork.append(house);
+artwork.append(face);
+portrait.append(artwork);
 
+// Restart rather than accumulate simultaneous animations on repeated clicks.
+//Spin the background, house, and face together
 spin.addEventListener("click", () => {
-  // Restart rather than accumulate simultaneous animations on repeated clicks.
-  for (const animation of face.getAnimations()) animation.cancel();
-  face.animate(
-    [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
-    { duration: 800, easing: "ease-in-out" },
+  // Cancel any previous spin.
+  for (const animation of artwork.getAnimations()) {
+    animation.cancel();
+  }
+
+  artwork.animate(
+    [
+      { transform: "rotate(0deg)" },
+      { transform: "rotate(360deg)" },
+    ],
+    {
+      duration: 800,
+      easing: "ease-in-out",
+    },
   );
 });
